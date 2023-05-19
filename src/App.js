@@ -5,19 +5,15 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>CountCorp</h1>
+        <h4>You can count on us!</h4>
       </header>
+      <section>
+        <button>Create counter</button>
+      </section>
+      <section>
+        {/* TODO:  Counters go here! */}
+      </section>
     </div>
   );
 }
