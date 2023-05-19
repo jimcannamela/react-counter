@@ -1,85 +1,30 @@
-## User Stories 
+# Counting on React
+
+Congratulations!  You're part of the small, selective tech team working at CountCorp, an exciting new startup that is disrupting the counting market.  Today is the day you build some cutting-edge counters that prove to your investors that this project is worth every penny of their investment.  As the CEO is fond of saying, "We're going to be the best in the business.  You can count on it."
+
+## Features
+
+After numerous focus groups and diligent market research, the big brains in the C-Suite have come up with an idea of what modern consumers are looking for in a counting application.  The CTO of the company has broken these consumer needs down into a set of features for you and your team to implement:
 
 ```
-Feature: Counters
-  A counter is a box containing a value and 2 buttons. The value can be increased or decreased by clicking the + or - buttons.
-  
-Scenario: The 'Create' button is rendered to the view with no counters.
-
-Given the 'Create' button is clicked
-Then a new counter is created and rendered
-And is added to the list of counters
-
-Given a counter is rendered
-When the counter value is 0
-Then the '-' button is not clickable.
-
-Given a counter has a value of 0
-When its value is incremented
-Then its' value is increased by 1
-
-Feature: Super Counters
-
-Rule: 3 counters creates 1 super counter.
-
-Given there are 3 counters
-When the 'Create' button is clicked
-Then a Super Counter will be created and rendered
-And it will have a starting value equal to the value of the 3 Counters
-And the 3 counters will be removed from the view.
-
-Given a Super Counter has been created
-When its rendered to view
-Then its twice the size of a Counter
-
-Given there's 1 Super Counter 
-When its value is 0
-Then the '-' button is not clickable.
-
-Given 1 Super Counter
-When the '+' button is clicked
-Then its value increases by 3
-
-Given a Super Counter with a value of 5
-When the '-' button is clicked
-Then its value is decreased by 3
-
-Feature: Super Duper Counters (STRETCH GOAL)
-Rule: Super Duper Counters are twice the size of Super Counters and have a unique color.
-
-Given here are 2 Super Counters rendered to view and 3 Counters
-When the 'Create' button is clicked
-Then a Super Duper Counter will be created
-And it will have a starting value equal to the sum of the values of the 3 Super Counters 
-And it will have a start button.
-And 3 Super Counters will be removed from the view.
-
-Given a Super Duper Counter with value of 0
-When the start button is clicked
-Then the counter will automatically increment its value by 1 every second
-And the Start button becomes disabled
-
-Given a Super Duper Counter has been started
-When the counter value is evenly divisible by 20
-Then a new Counter is automatically created.
-And the Super Duper Counter continues
-
-Feature: Colossal Counters (STRETCH GOAL)
-Rule: Colossal Counters are larger than Super Duper Counters and have a unique color. It doesn't have any buttons.
-
-Given there are 2 Super Duper Counters and 3 Counters
-When a new Counter is created
-Then a Colossal Counter is created
-And it will have a starting value equal to the sum of the values of the 3 Super Duper Counters
-And it will have a start button.
-And the 3 Super Duper Counters will be removed from the view.
-
-Given a Colossal Counter
-When its rendered to view
-Then it automatically increases in value by 2 every second
-
-Given a Colossal Counter
-When the counter value is evenly divisible by 10
-Then a new Counter is automatically created
-And the Colossal Counter continues incrementing
+Component 1: App
+  The App component should contain the entire application.  
+    * It should have a button to create new counters.
+    * It shouold also have an area to display existing counters.
+    * When the page loads, it should have no counters on it.
+Component 2: Counter
+  A counter is a box containing a value and 2 buttons. 
+    * The value can be increased or decreased by clicking the + or - buttons.
+Component 3: SuperCounter
+  When there are 3 Counter components on the screen, they automatically combine to create a SuperCounter.
+    * This means the three Counters will disappear, and the SuperCounter will appear.
+    * The SuperCounter's initial value will be equal to the sum of the values of the removed Counters.
+    * The SuperCounter's value increases or decreases by 3 when its + or - buttons are clicked.
+Component 4: SuperDuperCounter
+  When there are 3 SuperCounter components on the screen, they automatically combine to create a SuperDuperCounter.
+    * This means the three SuperCounters will disappear, and the SuperDuperCounter will appear.
+    * The SuperDuperCounter's initial value will be equal to the sum of the values of the removed SuperCounters.
+    * The SuperDuperCounter has a "start" button.
+    * When the "start" button is clicked, the value of the SuperDuperCounter increases by 1 every second.
 ```
+
