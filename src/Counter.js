@@ -2,15 +2,17 @@
 //   A counter is a box containing a value and 2 buttons. 
 //     * The value can be increased or decreased by clicking the + or - buttons.
 
-import React from "react";
+import {useState} from "react";
 
-function Counter(props) {
+
+function Counter(count, onIncrease) {
+    
     return (
         <div>
             <h2>Counter</h2>
-            <label>0</label><br/>
-            <button>+</button>
-            <button>-</button>
+            <label>{count}</label><br/>
+            <button onClick ={onIncrease}>+</button>
+            <button >-</button>
         </div>
     )
 }

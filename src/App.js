@@ -9,36 +9,31 @@
 // import logo from './logo.svg';
 import './App.css';
 import React, { useState } from 'react';
-import CounterDisplay from './CounterDisplay.js';
+// import CounterDisplay from './CounterDisplay.js';
 import Counter from './Counter.js';
 
 function App() {
 
-const [counter, setCounter] = useState(0);
+const [counters, setCounters] = useState([])
+const [count, setCount] = useState(0)
 
-// need to handle create counter click
-const handleCreateCounterClick = (e) => {
-  console.log('button clicked')
-  // this needs to add a counter to the page!
-  console.log(setCounter);
-  console.log(counter);
-  setCounter(<Counter counter={counter} />)
+function addCounter() {
+  const newCounter = 0;
+  setCounters ([...counters, newCounter])
+  console.log(counters)
 }
 
 
-// // need to modify content of counter value
-
-// // need to handle plus button click
-// const handlePlusClick = (e) => {
-//   setCounter
-// }
-
-// // need to handle minus button click
-// const handleMinusClick = (e) => {
-//   setCounter
-// }
-
-
+function increase(idx){
+  const countersCopy = [...counters];
+  countersCopy[idx] = countersCopy[idx] + 1
+  setCounters(countersCopy)
+}
+function decrease(){
+  if (count > 0){
+    setCounters(count - 1)
+  }
+}
 
   return (
     <div className="App">
@@ -47,10 +42,13 @@ const handleCreateCounterClick = (e) => {
         <h4>You can count on us!</h4>
       </header>
       <section>
-        <button onClick={ handleCreateCounterClick }>Create counter</button>
+        <button onClick={ addCounter }>Create counter</button>
       </section>
       <section>
-        <CounterDisplay />
+        {counters.map((c, idx) => <Counter
+        count={c}
+        onIncrease={() => increase(idx)}
+        />)}
       </section>
     </div>
   );
