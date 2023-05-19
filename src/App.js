@@ -6,39 +6,71 @@
 
 // States - no counters / 1 counter / 2 counters 
 
-// import logo from './logo.svg';
+// Need to store the state for the counters, superCounters, and SDCounters here
+
 import './App.css';
-import React, { useState } from 'react';
-import CounterDisplay from './CounterDisplay.js';
+import { useState } from 'react';
 import Counter from './Counter.js';
+import SuperCounter from './SuperCounter.js';
+
 
 function App() {
 
-const [counter, setCounter] = useState(0);
+  const [ counters, setCounters ] = useState([]);
+  const [ superCounters, setSuperCounters ] = useState([]);
+  const [ countersTotal, setCountersTotal] = useState(0);
 
-// need to handle create counter click
-const handleCreateCounterClick = (e) => {
-  console.log('button clicked')
-  // this needs to add a counter to the page!
-  console.log(setCounter);
-  console.log(counter);
-  setCounter(<Counter counter={counter} />)
-}
+  function addNewCounter() {
+    const newCounter = 0;
+    if (counters.length < 2 ) {
+      setCounters([...counters, newCounter])
+    } else {
+      addNewSuperCounter();
+    }
+  }
 
+  function updateSuperTotal (amount) {
+    console.log('amount ' + amount);
+    console.log('before ' + countersTotal);
+    setCountersTotal(countersTotal + amount);
+    console.log('after ' + countersTotal);
+  }
 
-// // need to modify content of counter value
+  function increase(idx) {
+    const countersCopy = [...counters];
+    countersCopy[idx] = countersCopy[idx] + 1;
+    setCounters(countersCopy);
+    updateSuperTotal(1);
+  }
 
-// // need to handle plus button click
-// const handlePlusClick = (e) => {
-//   setCounter
-// }
+  function decrease(idx) {
+      const countersCopy = [...counters];
+      if ( countersCopy[idx] > 0 ) {
+        countersCopy[idx] = countersCopy[idx] - 1;
+        setCounters(countersCopy);
+      }
+  }
 
-// // need to handle minus button click
-// const handleMinusClick = (e) => {
-//   setCounter
-// }
+  function addNewSuperCounter() {
+    const newSuperCounter = 0;
+    if (superCounters.length < 2 ) {
+      setSuperCounters([...superCounters, newSuperCounter])
+    }
+  }
 
+  function increaseSuper(idx) {
+    const countersCopy = [...superCounters];
+    countersCopy[idx] = countersCopy[idx] + 3;
+    setSuperCounters(countersCopy);
+  }
 
+  function decreaseSuper(idx) {
+      const countersCopy = [...counters];
+      if ( countersCopy[idx] > 2 ) {
+        countersCopy[idx] = countersCopy[idx] - 3;
+        setSuperCounters(countersCopy);
+      }
+  }  
 
   return (
     <div className="App">
@@ -47,10 +79,21 @@ const handleCreateCounterClick = (e) => {
         <h4>You can count on us!</h4>
       </header>
       <section>
-        <button onClick={ handleCreateCounterClick }>Create counter</button>
+        <button onClick={ addNewCounter }>Create counter</button>
       </section>
       <section>
-        <CounterDisplay />
+        {counters.map( (c, idx) => <Counter 
+          count={c}
+          onIncrease={() => increase(idx)}
+          onDecrease={() => decrease(idx)}
+        />)}
+      </section>
+      <section>
+        {superCounters.map( (sc, scidx) => <SuperCounter 
+          count={sc}
+          onIncrease={() => {increaseSuper(scidx)}}
+          onDecrease={() => {decreaseSuper(scidx)}}
+        />)}
       </section>
     </div>
   );
