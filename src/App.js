@@ -12,6 +12,7 @@ import './App.css';
 import { useState } from 'react';
 import Counter from './Counter.js';
 import SuperCounter from './SuperCounter.js';
+// import SuperDuperCounter from './SuperDuperCounter.js';
 
 
 function App() {
@@ -19,22 +20,35 @@ function App() {
   const [ counters, setCounters ] = useState([]);
   const [ superCounters, setSuperCounters ] = useState([]);
   const [ countersTotal, setCountersTotal] = useState(0);
+  // const [ superCountersTotal, setSuperCountersTotal ] = useState(0);
+  // const [ superDuperCounter, setSuperDuperCounter] = useState(0);
+
+  // function addSuperDuperCounter () {
+  //   const newSuperDuperValue = superCountersTotal;
+  //   setSuperDuperCounter(newSuperDuperValue);
+  // }
 
   function addNewCounter() {
     const newCounter = 0;
-    if (counters.length < 2 ) {
-      setCounters([...counters, newCounter])
-    } else {
-      addNewSuperCounter();
+    if (superCounters.length < 2 ) {
+      if (counters.length < 2 ) {
+        setCounters([...counters, newCounter])
+      } else {
+        setCounters([]);
+        addNewSuperCounter();
+      }
+    // } else {
+    //   addSuperDuperCounter();
     }
   }
 
   function updateSuperTotal (amount) {
-    console.log('amount ' + amount);
-    console.log('before ' + countersTotal);
     setCountersTotal(countersTotal + amount);
-    console.log('after ' + countersTotal);
   }
+
+  // function updateSuperDuperTotal (amount) {
+  //   setSuperCountersTotal(superCountersTotal + amount);
+  // }
 
   function increase(idx) {
     const countersCopy = [...counters];
@@ -48,11 +62,14 @@ function App() {
       if ( countersCopy[idx] > 0 ) {
         countersCopy[idx] = countersCopy[idx] - 1;
         setCounters(countersCopy);
+        updateSuperTotal(-1);
       }
   }
 
   function addNewSuperCounter() {
-    const newSuperCounter = 0;
+    const newSuperCounter = countersTotal;
+    // setSuperCountersTotal(superCountersTotal + countersTotal);
+    setCountersTotal(0);
     if (superCounters.length < 2 ) {
       setSuperCounters([...superCounters, newSuperCounter])
     }
@@ -62,14 +79,16 @@ function App() {
     const countersCopy = [...superCounters];
     countersCopy[idx] = countersCopy[idx] + 3;
     setSuperCounters(countersCopy);
+    // updateSuperDuperTotal(3);
   }
 
   function decreaseSuper(idx) {
-      const countersCopy = [...counters];
+      const countersCopy = [...superCounters];
       if ( countersCopy[idx] > 2 ) {
         countersCopy[idx] = countersCopy[idx] - 3;
         setSuperCounters(countersCopy);
-      }
+        // updateSuperDuperTotal(-3);
+      } // if less than 2 set to 0 and subtract current value from super duper total
   }  
 
   return (
@@ -95,6 +114,9 @@ function App() {
           onDecrease={() => {decreaseSuper(scidx)}}
         />)}
       </section>
+      {/* <section>
+        {<SuperDuperCounter/>}
+      </section> */}
     </div>
   );
 }
