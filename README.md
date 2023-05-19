@@ -1,70 +1,85 @@
-# Getting Started with Create React App
+## User Stories 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+```
+Feature: Counters
+  A counter is a box containing a value and 2 buttons. The value can be increased or decreased by clicking the + or - buttons.
+  
+Scenario: The 'Create' button is rendered to the view with no counters.
 
-## Available Scripts
+Given the 'Create' button is clicked
+Then a new counter is created and rendered
+And is added to the list of counters
 
-In the project directory, you can run:
+Given a counter is rendered
+When the counter value is 0
+Then the '-' button is not clickable.
 
-### `npm start`
+Given a counter has a value of 0
+When its value is incremented
+Then its' value is increased by 1
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Feature: Super Counters
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Rule: 3 counters creates 1 super counter.
 
-### `npm test`
+Given there are 3 counters
+When the 'Create' button is clicked
+Then a Super Counter will be created and rendered
+And it will have a starting value equal to the value of the 3 Counters
+And the 3 counters will be removed from the view.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Given a Super Counter has been created
+When its rendered to view
+Then its twice the size of a Counter
 
-### `npm run build`
+Given there's 1 Super Counter 
+When its value is 0
+Then the '-' button is not clickable.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Given 1 Super Counter
+When the '+' button is clicked
+Then its value increases by 3
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Given a Super Counter with a value of 5
+When the '-' button is clicked
+Then its value is decreased by 3
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Feature: Super Duper Counters (STRETCH GOAL)
+Rule: Super Duper Counters are twice the size of Super Counters and have a unique color.
 
-### `npm run eject`
+Given here are 2 Super Counters rendered to view and 3 Counters
+When the 'Create' button is clicked
+Then a Super Duper Counter will be created
+And it will have a starting value equal to the sum of the values of the 3 Super Counters 
+And it will have a start button.
+And 3 Super Counters will be removed from the view.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Given a Super Duper Counter with value of 0
+When the start button is clicked
+Then the counter will automatically increment its value by 1 every second
+And the Start button becomes disabled
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Given a Super Duper Counter has been started
+When the counter value is evenly divisible by 20
+Then a new Counter is automatically created.
+And the Super Duper Counter continues
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Feature: Colossal Counters (STRETCH GOAL)
+Rule: Colossal Counters are larger than Super Duper Counters and have a unique color. It doesn't have any buttons.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Given there are 2 Super Duper Counters and 3 Counters
+When a new Counter is created
+Then a Colossal Counter is created
+And it will have a starting value equal to the sum of the values of the 3 Super Duper Counters
+And it will have a start button.
+And the 3 Super Duper Counters will be removed from the view.
 
-## Learn More
+Given a Colossal Counter
+When its rendered to view
+Then it automatically increases in value by 2 every second
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Given a Colossal Counter
+When the counter value is evenly divisible by 10
+Then a new Counter is automatically created
+And the Colossal Counter continues incrementing
+```
