@@ -12,43 +12,36 @@ import './App.css';
 import { useState } from 'react';
 import Counter from './Counter.js';
 import SuperCounter from './SuperCounter.js';
-// import SuperDuperCounter from './SuperDuperCounter.js';
+import SuperDuperCounter from './SuperDuperCounter.js';
 
 
 function App() {
 
   const [ counters, setCounters ] = useState([]);
   const [ superCounters, setSuperCounters ] = useState([]);
+  const [ superDuperCounters, setSuperDuperCounters ] = useState([]);
   const [ countersTotal, setCountersTotal] = useState(0);
-  // const [ superCountersTotal, setSuperCountersTotal ] = useState(0);
-  // const [ superDuperCounter, setSuperDuperCounter] = useState(0);
-
-  // function addSuperDuperCounter () {
-  //   const newSuperDuperValue = superCountersTotal;
-  //   setSuperDuperCounter(newSuperDuperValue);
-  // }
+  const [ superCountersTotal, setSuperCountersTotal ] = useState(0);
+  const [ superDuperCounterTotal, setSuperDuperCounterTotal ] = useState(0);
+  
+// Counter functions 
 
   function addNewCounter() {
     const newCounter = 0;
-    if (superCounters.length < 2 ) {
-      if (counters.length < 2 ) {
-        setCounters([...counters, newCounter])
+    if (superDuperCounters.length < 1) {
+      if (superCounters.length < 2 ) {
+        if (counters.length < 2 ) {
+          setCounters([...counters, newCounter])
+        } else {
+          setCounters([]);
+          addNewSuperCounter();
+        }
       } else {
-        setCounters([]);
-        addNewSuperCounter();
+          setSuperCounters([]);
+          addSuperDuperCounter();
       }
-    // } else {
-    //   addSuperDuperCounter();
     }
   }
-
-  function updateSuperTotal (amount) {
-    setCountersTotal(countersTotal + amount);
-  }
-
-  // function updateSuperDuperTotal (amount) {
-  //   setSuperCountersTotal(superCountersTotal + amount);
-  // }
 
   function increase(idx) {
     const countersCopy = [...counters];
@@ -66,20 +59,25 @@ function App() {
       }
   }
 
+  // Super Counter functions
   function addNewSuperCounter() {
     const newSuperCounter = countersTotal;
-    // setSuperCountersTotal(superCountersTotal + countersTotal);
     setCountersTotal(0);
     if (superCounters.length < 2 ) {
       setSuperCounters([...superCounters, newSuperCounter])
     }
   }
 
+  function updateSuperTotal (amount) {
+    setCountersTotal(countersTotal + amount);
+    setSuperCountersTotal(superCountersTotal + amount);
+  }
+
   function increaseSuper(idx) {
     const countersCopy = [...superCounters];
     countersCopy[idx] = countersCopy[idx] + 3;
     setSuperCounters(countersCopy);
-    // updateSuperDuperTotal(3);
+    updateSuperDuperTotal(3);
   }
 
   function decreaseSuper(idx) {
@@ -87,9 +85,27 @@ function App() {
       if ( countersCopy[idx] > 2 ) {
         countersCopy[idx] = countersCopy[idx] - 3;
         setSuperCounters(countersCopy);
-        // updateSuperDuperTotal(-3);
-      } // if less than 2 set to 0 and subtract current value from super duper total
+        updateSuperDuperTotal(-3);
+      } 
   }  
+// Super Duper Counter functions
+  function updateSuperDuperTotal (amount) {
+    setSuperCountersTotal(superCountersTotal + amount);
+  }
+
+  function addSuperDuperCounter () {
+    const newSuperDuperCounter = superCountersTotal;
+    setSuperCountersTotal(0);
+    if (superDuperCounters.length < 1){
+      setSuperDuperCounters([...superDuperCounters, newSuperDuperCounter])
+    }
+  }
+
+  function increaseSuperDuper(idx) {
+    const countersCopy = [...superDuperCounters];
+    countersCopy[idx] = countersCopy[idx] + 10;
+    setSuperDuperCounters(countersCopy);
+  }
 
   return (
     <div className="App">
@@ -114,9 +130,12 @@ function App() {
           onDecrease={() => {decreaseSuper(scidx)}}
         />)}
       </section>
-      {/* <section>
-        {<SuperDuperCounter/>}
-      </section> */}
+      <section>
+      {superDuperCounters.map( (sdc, sdcidx) =><SuperDuperCounter 
+          count={sdc}
+          onStart={() => {increaseSuperDuper(sdcidx)}}
+          />)}
+      </section>
     </div>
   );
 }
