@@ -22,7 +22,8 @@ function App() {
   const [ superDuperCounters, setSuperDuperCounters ] = useState([]);
   const [ countersTotal, setCountersTotal] = useState(0);
   const [ superCountersTotal, setSuperCountersTotal ] = useState(0);
-  const [ superDuperCounterTotal, setSuperDuperCounterTotal ] = useState(0);
+
+  // let keepCounting = true;
   
 // Counter functions 
 
@@ -102,9 +103,11 @@ function App() {
   }
 
   function increaseSuperDuper(idx) {
-    const countersCopy = [...superDuperCounters];
-    countersCopy[idx] = countersCopy[idx] + 10;
-    setSuperDuperCounters(countersCopy);
+      const countersCopy = [...superDuperCounters];
+      setInterval( function() {      
+        countersCopy[idx] = countersCopy[idx] + 1;
+        setSuperDuperCounters(countersCopy);
+      }, 1000 )
   }
 
   return (
