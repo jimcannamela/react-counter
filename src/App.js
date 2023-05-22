@@ -9,11 +9,14 @@
 // Need to store the state for the counters, superCounters, and SDCounters here
 
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Counter from './Counter.js';
 import SuperCounter from './SuperCounter.js';
 import SuperDuperCounter from './SuperDuperCounter.js';
 
+const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet', 'teal'];
+let colorChanger = 0;
+let initialRender = true;
 
 function App() {
 
@@ -23,6 +26,18 @@ function App() {
 
   const [ countersTotal, setCountersTotal] = useState(0);
   const [ superCountersTotal, setSuperCountersTotal ] = useState(0);
+
+useEffect (() => {
+  if (initialRender) {
+    initialRender = false;
+  } else {
+
+  
+document.querySelector('.App-header').style = `background-color: ${colors[colorChanger]}`;
+colorChanger++;
+  }
+console.log(colorChanger)
+}, [counters, superDuperCounters])
 
   // const [ superDuperJimC, setSuperDuperJimC ] = useState(0);
 
