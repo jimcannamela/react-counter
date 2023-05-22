@@ -19,13 +19,14 @@ function App() {
 
   const [ counters, setCounters ] = useState([]);
   const [ superCounters, setSuperCounters ] = useState([]);
-  //const [ superDuperCounters, setSuperDuperCounters ] = useState([]);
+  const [ superDuperCounters, setSuperDuperCounters ] = useState([]);
+
   const [ countersTotal, setCountersTotal] = useState(0);
   const [ superCountersTotal, setSuperCountersTotal ] = useState(0);
 
-  const [ superDuperJimC, setSuperDuperJimC ] = useState(0);
+  // const [ superDuperJimC, setSuperDuperJimC ] = useState(0);
 
-  let sDCCreated = false;
+  // let sDCCreated = false;
 
   // let keepCounting = true;
   
@@ -33,8 +34,8 @@ function App() {
 
   function addNewCounter() {
     const newCounter = 0;
-    //if (superDuperCounters.length < 1) {
-      if (!sDCCreated) {
+    if (superDuperCounters.length < 1) {
+      // if (!sDCCreated) {
       if (superCounters.length < 2 ) {
         if (counters.length < 2 ) {
           setCounters([...counters, newCounter])
@@ -99,53 +100,53 @@ function App() {
     setSuperCountersTotal(superCountersTotal + amount);
   }
 
-  // function addSuperDuperCounter () {
-  //   const newSuperDuperCounter = superCountersTotal;
-  //   setSuperCountersTotal(0);
-  //   if (superDuperCounters.length < 1){
-  //     setSuperDuperCounters([...superDuperCounters, newSuperDuperCounter])
-  //   }
-  // }
-
-  // function increaseSuperDuper(idx) {
-  //   let numIterations = 0    
-  //   let myInterval = setInterval(() => {    
-  //     numIterations++;
-  //     const countersCopy = [...superDuperCounters];
-  //     countersCopy[idx] = countersCopy[idx] + numIterations;
-  //     setSuperDuperCounters(countersCopy);
-  //   }, 1000 );
-  //   console.log(myInterval);
-  // }
-
   function addSuperDuperCounter () {
     const newSuperDuperCounter = superCountersTotal;
     setSuperCountersTotal(0);
-    if (!sDCCreated){
-      sDCCreated=true;
-      document.getElementById('SDC').classList.remove('hide');
-      setSuperDuperJimC(newSuperDuperCounter)
+    if (superDuperCounters.length < 1){
+      setSuperDuperCounters([...superDuperCounters, newSuperDuperCounter])
     }
   }
 
-  let myInterval = 0;
-
-  function increaseSuperDuperJimC() {
-    let numIterations = 0
-
-    myInterval = 
-    setInterval(() => {    
+  function increaseSuperDuper(idx) {
+    let numIterations = 0    
+    let myInterval = setInterval(() => {    
       numIterations++;
-      let counterCopy = superDuperJimC;
-      counterCopy = counterCopy + numIterations;
-      setSuperDuperJimC(counterCopy);
+      const countersCopy = [...superDuperCounters];
+      countersCopy[idx] = countersCopy[idx] + numIterations;
+      setSuperDuperCounters(countersCopy);
     }, 1000 );
     console.log(myInterval);
   }
 
-  function stopCounter() {
-    clearInterval(myInterval);
-  }
+  // function addSuperDuperCounter () {
+  //   const newSuperDuperCounter = superCountersTotal;
+  //   setSuperCountersTotal(0);
+  //   if (!sDCCreated) {
+  //     sDCCreated=true;
+  //     document.getElementById('SDC').classList.remove('hide');
+  //     setSuperDuperJimC(newSuperDuperCounter)
+  //   }
+  // }
+
+  // let myInterval = 0;
+
+  // function increaseSuperDuperJimC() {
+  //   let numIterations = 0
+
+  //   myInterval = 
+  //   setInterval(() => {    
+  //     numIterations++;
+  //     let counterCopy = superDuperJimC;
+  //     counterCopy = counterCopy + numIterations;
+  //     setSuperDuperJimC(counterCopy);
+  //   }, 1000 );
+  //   console.log(myInterval);
+  // }
+
+  // function stopCounter() {
+  //   clearInterval(myInterval);
+  // }
 
   return (
     <div className="App">
@@ -170,12 +171,13 @@ function App() {
           onDecrease={() => {decreaseSuper(scidx)}}
         />)}
       </section>
-      <section id='SDC' class='hide'>
-      {/* {superDuperCounters.map( (sdc, sdcidx) =><SuperDuperCounter 
+      <section id='SDC' class='hide'></section>
+      <section>  
+      {superDuperCounters.map( (sdc, sdcidx) =><SuperDuperCounter 
           count={sdc}
           onStart={() => {increaseSuperDuper(sdcidx)}}
-          />)} */}
-        <SuperDuperCounter count={superDuperJimC} onStart={increaseSuperDuperJimC} onStop={stopCounter}/>     
+          />)}
+        {/* <SuperDuperCounter count={superDuperJimC} onStart={increaseSuperDuperJimC} onStop={stopCounter}/>      */}
       </section>
     </div>
   );
