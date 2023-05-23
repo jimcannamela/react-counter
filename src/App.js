@@ -27,25 +27,55 @@ function App() {
   const [ countersTotal, setCountersTotal] = useState(0);
   const [ superCountersTotal, setSuperCountersTotal ] = useState(0);
 
-useEffect (() => {
-  if (initialRender) {
-    initialRender = false;
-  } else {
+  useEffect (() => {
+    if (initialRender) {
+      initialRender = false;
+    } else {  
+      document.querySelector('.App-header').style = `background-color: ${colors[colorChanger]}`;
+      colorChanger++;
+    }
+    if (colorChanger > 7) {
+      colorChanger=0;
+    }
+    // console.log(colorChanger)
+  });
 
-  
-document.querySelector('.App-header').style = `background-color: ${colors[colorChanger]}`;
-colorChanger++;
-  }
-console.log(colorChanger)
-}, [counters, superDuperCounters])
+  // ---------------------------------------------------------------------------
+  // The folowing utilizes useEffect treating the side effects
+  // from modifying the counter states to invoke the creation 
+  // of the Super and SuperDuper counters.
+  // ---------------------------------------------------------------------------
+  // Note: this version of the code does not limit the number of counters!
+  // ---------------------------------------------------------------------------
 
-  // const [ superDuperJimC, setSuperDuperJimC ] = useState(0);
+  // useEffect (() => {
+  //     if (counters.length > 2) {
+  //         const newSuperCounter = countersTotal;   
+  //         setCountersTotal(0);
+  //         setCounters([]);
+  //         setSuperCounters([...superCounters, newSuperCounter])
+  //     } 
+  // }, [counters])
 
-  // let sDCCreated = false;
+  // useEffect(() => {
+  //     if (superCounters.length > 2) {
+  //         const newSuperDuperCounter = superCountersTotal;
+  //         setSuperCountersTotal(0);
+  //         setSuperCounters([]);
+  //         setSuperDuperCounters([...superDuperCounters, newSuperDuperCounter])
+  //     }
+  // }, [superCounters])
 
-  // let keepCounting = true;
-  
-// Counter functions 
+  // function addNewCounter() {
+  //     const newCounter = 0;
+  //     setCounters([...counters, newCounter])
+  // }
+
+  // ---------------------------------------------------------------------------
+
+  // ----------------------------
+  // Counter functions 
+  // ----------------------------
 
   function addNewCounter() {
     const newCounter = 0;
@@ -64,7 +94,6 @@ console.log(colorChanger)
       }
     }
   }
-
   function increase(idx) {
     const countersCopy = [...counters];
     countersCopy[idx] = countersCopy[idx] + 1;
@@ -81,7 +110,10 @@ console.log(colorChanger)
       }
   }
 
+  // ----------------------------
   // Super Counter functions
+  // ----------------------------
+
   function addNewSuperCounter() {
     const newSuperCounter = countersTotal;
     setCountersTotal(0);
@@ -110,7 +142,11 @@ console.log(colorChanger)
         updateSuperDuperTotal(-3);
       } 
   }  
-// Super Duper Counter functions
+
+  // --------------------------------
+  // Super Duper Counter functions
+  // --------------------------------
+
   function updateSuperDuperTotal (amount) {
     setSuperCountersTotal(superCountersTotal + amount);
   }
@@ -123,16 +159,21 @@ console.log(colorChanger)
     }
   }
 
-  function increaseSuperDuper(idx) {
+  function startSuperDuper(idx) {
     let numIterations = 0    
-    let myInterval = setInterval(() => {    
+    setInterval(() => {    
       numIterations++;
       const countersCopy = [...superDuperCounters];
       countersCopy[idx] = countersCopy[idx] + numIterations;
       setSuperDuperCounters(countersCopy);
     }, 1000 );
-    console.log(myInterval);
   }
+
+
+  // ---------------------------------------------------------------------
+  // This was an attempt to swap the array of SuperDuperCounters with a 
+  // single variable
+  //----------------------------------------------------------------------
 
   // function addSuperDuperCounter () {
   //   const newSuperDuperCounter = superCountersTotal;
@@ -144,6 +185,11 @@ console.log(colorChanger)
   //   }
   // }
 
+
+  // ---------------------------------------------------------------------
+  // This was an attempt to add a Stop Button to the SuperDuperCounter
+  //----------------------------------------------------------------------
+  
   // let myInterval = 0;
 
   // function increaseSuperDuperJimC() {
@@ -186,11 +232,11 @@ console.log(colorChanger)
           onDecrease={() => {decreaseSuper(scidx)}}
         />)}
       </section>
-      <section id='SDC' class='hide'></section>
+      <section id='SDC' className='hide'></section>
       <section>  
       {superDuperCounters.map( (sdc, sdcidx) =><SuperDuperCounter 
           count={sdc}
-          onStart={() => {increaseSuperDuper(sdcidx)}}
+          onStart={() => {startSuperDuper(sdcidx)}}
           />)}
         {/* <SuperDuperCounter count={superDuperJimC} onStart={increaseSuperDuperJimC} onStop={stopCounter}/>      */}
       </section>
@@ -199,3 +245,7 @@ console.log(colorChanger)
 }
 
 export default App;
+
+//----------------------------------
+// End of Javascript
+//----------------------------------
